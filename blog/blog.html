@@ -168,6 +168,12 @@
         </div>
     </div>
 </div>
+<div class="pagination">
+    <button class="prev" onclick="prevPage()">Prev</button>
+    <span class="page-number">1</span>
+    <button class="next" onclick="nextPage()">Next</button>
+</div>
+
 
 <div><h1>Top Developers</h1></div>
 
@@ -240,6 +246,40 @@
         likeCount.innerText = parseInt(likeCount.innerText) - 1;
     }
 }
+
+</script>
+<script>
+const blogItems = document.querySelectorAll('.flex-items');
+const itemsPerPage = 6;
+const totalPages = Math.ceil(blogItems.length / itemsPerPage);
+
+let currentPage = 1;
+function showItems() {
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    
+    blogItems.forEach((item, index) => {
+        if (index >= startIndex && index < endIndex) {
+            item.style.display = 'flex';
+        } else {
+            item.style.display = 'none';
+        }
+    });
+    document.querySelector('.page-number').textContent = currentPage;
+}
+function prevPage() {
+    if (currentPage > 1) {
+        currentPage--;
+        showItems();
+    }
+}
+function nextPage() {
+    if (currentPage < totalPages) {
+        currentPage++;
+        showItems();
+    }
+}
+showItems();
 
 </script>
 </body>
